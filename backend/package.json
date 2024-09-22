@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.4.5",
-    "puppeteer": "^23.4.0"
+    "puppeteer": "^23.4.0",
+    "puppeteer-extra": "^3.3.6"
   }
 }
