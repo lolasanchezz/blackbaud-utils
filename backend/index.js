@@ -3,7 +3,7 @@ require('dotenv').config()
 const email = process.env.email;
 const password = process.env.password;
 
-const test = async() => {
+const login = async() => {
 
     const browser = await puppeteer.launch({headless: false});
     const page = await browser.newPage();
@@ -25,11 +25,18 @@ const test = async() => {
    await page.waitForSelector('[eventbuttonname = "Portal link"]')
    await page.click('[eventbuttonname="Portal link"]')
    await page.waitForNavigation();
+   await page.locator('mwl-calendar-week-view-event').wait();
    console.log("logged in!!")
 
 
    //now trying to take all the text from each assignment
-    
+   async function infoAboutAssignments() {
+        console.log(page.$$eval('mwl-calendar-week-view-event'), hw => {
+            let time = hw.children[0].children[0].children[0].textContent;
+            return time;
+            })
+        }
+    //infoAboutAssignments();
 
 
 
@@ -38,7 +45,15 @@ const test = async() => {
 
     
 }
-test();
+
+const getAssignments = async(page) => {
+    
+}
+
+
+
+
+login();
 
 
 
