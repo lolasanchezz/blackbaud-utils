@@ -25,19 +25,24 @@ const login = async() => {
    await page.waitForSelector('[eventbuttonname = "Portal link"]')
    await page.click('[eventbuttonname="Portal link"]')
    await page.waitForNavigation();
-   await page.locator('mwl-calendar-week-view-event').wait();
-   console.log("logged in!!")
+   
+   await page.waitForSelector('.cal-event')
+   // ok finally at blackbaud home page!! now trying to get info stuff
+
+   const hw = await page.evaluate(() => {
+    const hws = document.querySelectorAll("mwl-calendar-week-view-event");
+    return Array.from(hws).map(hws => {
+    
+       return hws.children[0].children[0].children[0].innerHTML;
+    })
+   
+});
+console.log(hw);
 
 
-   //now trying to take all the text from each assignment
-   async function infoAboutAssignments() {
-        console.log(page.$$eval('mwl-calendar-week-view-event'), hw => {
-            let time = hw.children[0].children[0].children[0].textContent;
-            return time;
-            })
-        }
-    //infoAboutAssignments();
 
+  
+    
 
 
 
