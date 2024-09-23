@@ -27,17 +27,23 @@ const login = async() => {
    await page.waitForNavigation();
    
    await page.waitForSelector('.cal-event')
+   await page.click('[icon = "list"]')
    // ok finally at blackbaud home page!! now trying to get info stuff
 
-   const hw = await page.evaluate(() => {
-    const hws = document.querySelectorAll("mwl-calendar-week-view-event");
-    return Array.from(hws).map(hws => {
-    
-       return hws.children[0].children[0].children[0].innerHTML;
+const hw = await page.evaluate(() => {
+    const hws = document.getElementsByClassName('middle-block');
+
+    let hw =  Array.from(hws).map(hws => {
+       return {
+            name: hws.children[0].children[0].children[0].children[0].innerHTML,
+            dueDate: hws.children[1].textContent.trim().split('|')[0]
+       }
     })
+   return hw;
    
 });
 console.log(hw);
+
 
 
 
@@ -51,9 +57,7 @@ console.log(hw);
     
 }
 
-const getAssignments = async(page) => {
-    
-}
+
 
 
 
